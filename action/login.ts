@@ -2,6 +2,9 @@
 
 import { LoginSchema } from "@/schemas";
 import { z } from "zod";
+import { signIn } from "@/auth";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { AuthError } from "next-auth";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   // Validate the input fields using the schema
@@ -14,20 +17,37 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     };
   }
 
-  // Proceed with the login logic if validation is successful
-  try {
-    // Simulate sending an email or performing login-related operations
-    console.log("Login successful for:", validatedFields.data);
+  
 
     // Return a success response
-    return {
-      success: "Email sent",
-    };
-  } catch (err) {
-    // Handle any errors during the operation
-    console.error("An error occurred:", err);
-    return {
-      error: "An unexpected error occurred. Please try again later.",
-    };
+   const { email, password } = validatedFields.data;
+
+  try {
+    await signIn ("credentials", {
+      email,
+      password,
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
+    });
+    
+  }
+
+  catch (error) {
+
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return {
+            error: "Invalid email or password",
+          };
+        default:
+          return {
+            error: "Something went wrong!",
+          };
+        
+      }
+    }
+    throw error;
   }
 };
+
+
