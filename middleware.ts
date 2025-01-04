@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import NextAuth from "next-auth";
 
 import authConfig from "./auth.config";
@@ -11,33 +10,36 @@ import {
 
 const { auth } = NextAuth(authConfig);
 
-export default auth(async (req) => {
+export default auth((req) => {
   const { nextUrl } = req;
 
-  const isLoggedIn = !!req.auth; // Ensure `req.auth` is properly set up in NextAuth
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix as unknown as string);
+  const isLoggedIn = !!req.auth;
+  // Ensure `req.auth` is properly set up in NextAuth
+  const isApiAuthRoute = nextUrl.pathname.startsWith(
+    apiAuthPrefix as unknown as string
+  );
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   // If it's an API Auth route, allow access
   if (isApiAuthRoute) {
-    return NextResponse.next();
+    return null;
   }
 
   // Handle authentication routes
   if (isAuthRoute) {
     if (isLoggedIn) {
-      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
-    return NextResponse.next();
+    return null;
   }
 
   // Redirect unauthenticated users away from private routes
   if (!isLoggedIn && !isPublicRoute) {
-    return NextResponse.redirect(new URL("/auth/login", nextUrl));
+    return Response.redirect(new URL("/auth/login", nextUrl));
   }
 
-  return NextResponse.next();
+  return null;
 });
 
 export const config = {
