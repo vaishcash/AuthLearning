@@ -14,7 +14,7 @@ export default function Home() {
         bg-gradient-to-r from-slate-500 to-slate-800"
     >
       <div className="space-y-4">
-        <h1 className={cn("text-4xl font-bold text-white ", font.className)}>
+        <h1 className={cn("text-4xl font-bold text-white text-center", font.className)}>
           🔐 Welcome to Next.js Auth!
         </h1>
         <p className="text-lg text-white text-center">

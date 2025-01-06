@@ -13,8 +13,8 @@ const font = Poppins({
     return (
       <div className="w-full flex flex-col items-center justify-center">
         <h1
-          className={cn("text-4xl font-bold text-black ", font.className)}
-        > Auth 🔐</h1>
+          className={cn("text-4xl font-bold text-black flex justify-center items-center ", font.className)}
+        > Auth <span className="text-2xl p-3 ">🔐</span></h1>
         <p className="text-muted-foreground text-sm">{label}</p>
       </div>
     );

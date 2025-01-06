@@ -2,7 +2,9 @@
  *  these do not need authentification to access
  * @type {string[]}
  */
-export const publicRoutes = ["/",];
+export const publicRoutes = ["/",
+    "/auth/new-verification",
+];
 
 /**  an array of private routes ,
  *  these do  need authentification to access
