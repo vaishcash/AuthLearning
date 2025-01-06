@@ -5,7 +5,8 @@ import { z } from "zod";
 import bcrypt from "bcrypt";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";
-
+import { generateVerificationToken } from "@/lib/token";
+import { sendVerificationEmail } from "@/lib/mail";
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   // Validate the input fields using the schema
   const validatedFields = RegisterSchema.safeParse(values);
@@ -33,19 +34,10 @@ await db.user.create({
     name: name,
   },
 })
-  try {
-    // Simulate sending an email or performing login-related operations
-    console.log("Login successful for:", validatedFields.data);
 
-    // Return a success response
-    return {
-      success: "User Created",
-    };
-  } catch (err) {
-    // Handle any errors during the operation
-    console.error("An error occurred:", err);
-    return {
-      error: "An unexpected error occurred. Please try again later.",
-    };
-  }
+const verificationToken = await generateVerificationToken(email);
+
+await sendVerificationEmail(verificationToken.email, verificationToken.token);
+
+return { success: "Conformation email sent!" };
 };

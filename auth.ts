@@ -13,7 +13,7 @@ export const {
 } = NextAuth({
   pages: {
     signIn: "/auth/login",
-    error: "/auth/error"
+    error: "/auth/error",
   },
   events: {
     async linkAccount({ user }) {
@@ -29,14 +29,21 @@ export const {
   },
 
   callbacks: {
-    // async signIn({ user }) {
-    //   const existingUser = await getUserById(user.id);
-    //   if (!existingUser || !existingUser.emailVerified) {
-    //     return false;
-    //   }
 
-    //   return true;
-    // },
+    async signIn({ user  , account }) {
+
+      if ( account?.provider !== "credentials") return true ;
+
+      const existingUser = await getUserById(user.id);
+
+
+// prevent signin without email verification
+      
+      if (!existingUser?.emailVerified) return false;
+
+      return true;
+    }
+  ,
 
     async session({ token, session }) {
       console.log({ sessionToken: token });
