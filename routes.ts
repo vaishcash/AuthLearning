@@ -2,14 +2,14 @@
  *  these do not need authentification to access
  * @type {string[]}
  */
-export const publicRoutes = ["/"];
+export const publicRoutes = ["/",];
 
 /**  an array of private routes ,
  *  these do  need authentification to access
  * @type {string[]}
  */
 
-export const authRoutes = ["/auth/login", "/auth/register"];
+export const authRoutes = ["/auth/login", "/auth/register" , "/auth/error"];
 
 /** the prifix for API authrntication routes,
  * Routes that start with this prifix are used for API authentification purposes
