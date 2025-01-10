@@ -11,7 +11,11 @@ export const publicRoutes = ["/",
  * @type {string[]}
  */
 
-export const authRoutes = ["/auth/login", "/auth/register" , "/auth/error","/auth/reset"];
+export const authRoutes = ["/auth/login",
+     "/auth/register" ,
+      "/auth/error",
+      "/auth/reset",
+    "/auth/new-password",];
 
 /** the prifix for API authrntication routes,
  * Routes that start with this prifix are used for API authentification purposes
