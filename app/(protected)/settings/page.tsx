@@ -13,11 +13,13 @@ const SettingsPage =  () => {
        logout();
     }
     return (
-        <div>
-        
-            <button onClick={onClick} type="submit">Sign Out</button>
-         
-        </div>
+      <div
+       
+      >
+        <button onClick={onClick} type="submit">
+          Sign Out
+        </button>
+      </div>
     );
 };
 
