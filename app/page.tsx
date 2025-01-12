@@ -21,7 +21,7 @@ export default function Home() {
           a simple example of authentication with Next.js
         </p>
         <div className="flex justify-center">
-          <LoginButton>
+          <LoginButton mode="modal" asChild>
             <Button variant="default" size="lg">
               Sign in
             </Button>

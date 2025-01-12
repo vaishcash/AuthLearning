@@ -1,7 +1,10 @@
 "use client";
 
-import React from "react";
 import { useRouter } from "next/navigation";
+
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { LoginForm } from "@/components/auth/login-form";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 interface LoginButtonProps {
   children: React.ReactNode;
@@ -12,29 +15,26 @@ interface LoginButtonProps {
 export const LoginButton = ({
   children,
   mode = "redirect",
-  asChild = false,
+  asChild,
 }: LoginButtonProps) => {
-    const   router = useRouter();
-  // Define the onClick handler
+  const router = useRouter();
+
   const onClick = () => {
-    router.push("/auth/login");}
-
-    if (mode === "modal") {
-      
-        return(
-            <span>
-                TODO:implement login modal
-            </span>
-        )
+    router.push("/auth/login");
   };
-  
 
-  // Handle the asChild behavior
-  if (asChild) {
-    return React.cloneElement(children as React.ReactElement);
+  if (mode === "modal") {
+    return (
+      <Dialog>
+        <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
+        <DialogContent className="p-0 w-auto bg-transparent border-none">
+          <DialogTitle className="hidden">Sign in</DialogTitle>
+          <LoginForm />
+        </DialogContent>
+      </Dialog>
+    );
   }
 
-  // Return the main component
   return (
     <span onClick={onClick} className="cursor-pointer">
       {children}
