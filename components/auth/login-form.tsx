@@ -77,7 +77,11 @@ export const LoginForm = () => {
       showSocial
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6"
+          autoComplete="off"
+        >
           <div className="space-y-4">
             {showTwoFactor && (
               <FormField
@@ -108,10 +112,11 @@ export const LoginForm = () => {
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input
-                          {...field}
                           disabled={isPending}
                           placeholder="john.doe@example.com"
                           type="email"
+                          autoComplete="off"
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -148,7 +153,7 @@ export const LoginForm = () => {
             )}
           </div>
           <FormError message={error || urlError} />
-          <FormSuccess message={success} />
+          <FormSuccess message={success!} />
           <Button disabled={isPending} type="submit" className="w-full">
             {showTwoFactor ? "Confirm" : "Login"}
           </Button>
