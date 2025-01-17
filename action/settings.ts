@@ -3,13 +3,13 @@
 import * as z from "zod";
 import bcrypt from "bcryptjs";
 
-import { update } from "@/auth";
 import { db } from "@/lib/db";
 import { SettingsSchema } from "@/schemas";
 import { getUserByEmail, getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { generateVerificationToken } from "@/lib/token";
 import { sendVerificationEmail } from "@/lib/mail";
+import { revalidatePath } from "next/cache";
 
 export const settings = async (values: z.infer<typeof SettingsSchema>) => {
   const user = await currentUser();
@@ -18,7 +18,7 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
     return { error: "Unauthorized" };
   }
 
-  const dbUser = await getUserById(user.id);
+  const dbUser = await getUserById(user.id!);
 
   if (!dbUser) {
     return { error: "Unauthorized" };
@@ -68,15 +68,19 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
       ...values,
     },
   });
+  console.log("🚀 ~ settings ~ updatedUser:", updatedUser)
 
-  update({
-    user: {
-      name: updatedUser.name,
-      email: updatedUser.email,
-      isTwoFactorEnabled: updatedUser.isTwoFactorEnabled,
-      role: updatedUser.role,
-    },
-  });
+  // [TODO]: LOOKOUT
+  // update({
+  //   user: {
+  //     name: updatedUser.name,
+  //     email: updatedUser.email,
+  //     isTwoFactorEnabled: updatedUser.isTwoFactorEnabled,
+  //     role: updatedUser.role,
+  //   },
+  // });
+
+  revalidatePath(`/settings`);
 
   return { success: "Settings Updated!" };
 };

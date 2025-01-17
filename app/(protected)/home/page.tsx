@@ -12,9 +12,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+
 import { UserButton } from "@/components/auth/user-button";
-import { usePathname } from "next/navigation";
 const HomePage = () => {
   return (
     <div className=" w-full min-h-screen bg-white">

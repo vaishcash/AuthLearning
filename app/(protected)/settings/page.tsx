@@ -36,7 +36,7 @@ import { UserRole } from "@prisma/client";
 const SettingsPage = () => {
   const user = useCurrentUser();
 
-  const [error, setError] = useState< string | undefined>();
+  const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const { update } = useSession();
   const [isPending, startTransition] = useTransition();
@@ -44,12 +44,12 @@ const SettingsPage = () => {
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
-      password: undefined,
-      newPassword: undefined,
-      name: user?.name || undefined,
-      email: user?.email || undefined,
-      role: user?.role || undefined,
-      isTwoFactorEnabled: user?.isTwoFactorEnabled || undefined,
+      password: "",
+      newPassword: "",
+      name: user?.name || "",
+      email: user?.email || "",
+      role: user?.role || "USER",
+      isTwoFactorEnabled: user?.isTwoFactorEnabled || false,
     },
   });
 
@@ -203,8 +203,8 @@ const SettingsPage = () => {
                 />
               )}
             </div>
-            <FormError message={error} />
-            <FormSuccess message={success} />
+            <FormError message={error || ""} />
+            <FormSuccess message={success ?? ""} />
             <Button disabled={isPending} type="submit">
               Save
             </Button>
