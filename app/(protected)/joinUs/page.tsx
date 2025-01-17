@@ -1,14 +1,70 @@
+"use client";
 import React from "react";
 import { Heart, HandHeart, PawPrint, Phone, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { UserButton } from "@/components/auth/user-button";
 
 function JoinUs() {
   return (
-    <div className="py-12 bg-gray-50 rounded-md">
+    <div className="w-full py-8 bg-gray-50 rounded-md ">
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(12)].map((_, i) => (
+          <Heart
+            key={i}
+            className={`
+              absolute animate-float opacity-20
+              ${["text-pink-800", "text-purple-400", "text-blue-700"][i % 3]}
+                  `}
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              fontSize: `${Math.random() * 20 + 10}px`,
+              animationDelay: `${i * 0.5}s`,
+              transform: `rotate(${Math.random() * 360}deg)`,
+            }}
+          />
+        ))}
+      </div>
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center  ">
+          <nav className="relative w-full pb-6 z-10 container shadow-xl">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2 text-yellow-500">
+                <PawPrint className="h-8 w-8" />
+                <span className="text-2xl font-bold text-black">PawsHope</span>
+              </div>
+              <div className="hidden md:flex space-x-8 text-black">
+                <a href="/home" className="hover:text-yellow-400">
+                  Home
+                </a>
+                <a href="/joinUs" className="hover:text-yellow-400">
+                  Join Us
+                </a>
+                <a href="/needHelp" className="hover:text-yellow-400">
+                  Need Help
+                </a>
+                <a href="/contact" className="hover:text-yellow-400">
+                  Contact
+                </a>
+                <a href="/settings" className="hover:text-yellow-400">
+                  Setting
+                </a>
+              </div>
+
+              <Button
+                onClick={() => (window.location.href = "/opportunities")}
+                className="bg-yellow-400 text-black px-6 py-2 rounded-full font-semibold hover:bg-yellow-500 transition"
+              >
+                Donate Now
+              </Button>
+
+              <UserButton />
+            </div>
+          </nav>
+          <h1 className="text-4xl font-bold text-gray-900 mt-8 mb-4">
             Join Our Community
           </h1>
+
           <p className="text-xl text-gray-600">
             Whether you need assistance or want to help, we are here for you
           </p>
@@ -40,6 +96,7 @@ function JoinUs() {
                     </p>
                   </div>
                 </div>
+
                 <div className="flex items-start space-x-3">
                   <Phone className="h-6 w-6 text-yellow-400 mt-1" />
                   <div>
