@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Heart,
@@ -10,6 +11,10 @@ import {
   MapPin,
 } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { UserButton } from "@/components/auth/user-button";
+import { usePathname } from "next/navigation";
 const HomePage = () => {
   return (
     <div className=" w-full min-h-screen bg-white">
@@ -21,7 +26,7 @@ const HomePage = () => {
             alt="Street dog being petted"
             className="w-full h-full object-cover"
             width={500}
-            height={500}  
+            height={500}
           />
           <div className="absolute inset-0 bg-black/50"></div>
         </div>
@@ -38,16 +43,27 @@ const HomePage = () => {
               <a href="/joinUs" className="hover:text-yellow-400">
                 Join Us
               </a>
-              <a href="/howToHelp" className="hover:text-yellow-400">
-                How to Help
+              <a href="/needHelp" className="hover:text-yellow-400">
+                Need Help
               </a>
               <a href="/contact" className="hover:text-yellow-400">
                 Contact
               </a>
+              <a href="/settings" className="hover:text-yellow-400">
+                Setting
+              </a>
             </div>
-            <button className="bg-yellow-400 text-black px-6 py-2 rounded-full font-semibold hover:bg-yellow-500 transition">
+            {/* <button className="bg-yellow-400 text-black px-6 py-2 rounded-full font-semibold hover:bg-yellow-500 transition">
               Donate Now
-            </button>
+            </button> */}
+            <Button
+              onClick={() => (window.location.href = "/opportunities")}
+              className="bg-yellow-400 text-black px-6 py-2 rounded-full font-semibold hover:bg-yellow-500 transition"
+            >
+              Donate Now
+            </Button>
+
+            <UserButton />
           </div>
         </nav>
         <div className="relative z-10 container mx-auto px-6 pt-20">
@@ -60,10 +76,14 @@ const HomePage = () => {
             it most.
           </p>
           <div className="mt-8 flex space-x-4">
-            <button className="bg-yellow-400 text-black px-8 py-3 rounded-full font-semibold hover:bg-yellow-500 transition flex items-center">
-              Donate Now <ArrowRight className="ml-2 h-5 w-5" />
-            </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition">
+            <Button
+              onClick={() => (window.location.href = "/opportunities")}
+              className="bg-yellow-400 text-black px-6 py-2 rounded-full font-semibold hover:bg-yellow-500 transition"
+            >
+              Donate Now
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            <button className="border-2 border-white text-white px-6 py-1 rounded-full font-semibold hover:bg-white/10 transition">
               Learn More
             </button>
           </div>

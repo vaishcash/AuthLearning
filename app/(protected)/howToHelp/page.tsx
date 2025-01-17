@@ -9,8 +9,8 @@ import Image from "next/image";
 
 export default function HelpPage() {
   const [address, setAddress] = useState("");
-  const defaultLocation = "New York, NY"; // Default map center
-  const mapLocation = address || defaultLocation;
+  
+ 
 
 
   return (
