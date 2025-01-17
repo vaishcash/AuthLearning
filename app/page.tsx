@@ -10,7 +10,7 @@ const font = Poppins({
 export default function Home() {
   return (
     <main
-      className="flex h-full flex-col items-center justify-center  
+      className="flex w-full h-full flex-col items-center justify-center  
         bg-gradient-to-r from-slate-500 to-slate-800"
     >
       <div className="space-y-4">
