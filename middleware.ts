@@ -36,7 +36,7 @@ export default auth(
       }
       return ;
     }
-
+console.log("first")
     // Redirect unauthenticated users away from private routes
     if (!isLoggedIn && !isPublicRoute) {
       return Response.redirect(new URL("/auth/login", nextUrl));
