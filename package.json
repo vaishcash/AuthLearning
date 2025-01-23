@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "gen": "prisma generate",
-    "show": "prisma studio"
+    "show": "prisma studio",
+    "pull": "prisma db pull",
+    "push": "prisma db push"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
